@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传Excel</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <script src="/static/layui/layui.js"></script>
+</head>
+<body>
+
+    <div class="layui-container">
+        <div class="layui-row">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+                <legend>Excel的上传与导出</legend>
+            </fieldset>
+
+            <button type="button" class="layui-btn" id="test1">
+                <i class="layui-icon">&#xe67c;</i>上传Excel 支持xls、xlsx、cvs等格式
+            </button>
+        </div>
+    </div>
+    <script>
+    //一般直接写在一个js文件中
+    layui.use(['layer', 'form', 'upload'], function(){
+        var layer = layui.layer
+            ,form = layui.form
+            ,upload = layui.upload;
+
+        //layer.msg('Hello World');
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#test1' //绑定元素
+            ,url: '/upload/' //上传接口
+            ,accept: 'file'
+            ,exts: 'xls|xlsx|csv'
+            ,size: 5120
+            ,field: 'file'
+            ,done: function(res){
+                if (res == 1){
+                    layer.msg("上传成功");
+                }
+            }
+            ,error: function(res){
+                if (res != 1){
+                    layer.msg("上传失败")
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
