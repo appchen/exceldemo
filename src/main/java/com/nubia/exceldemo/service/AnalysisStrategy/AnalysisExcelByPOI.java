@@ -60,11 +60,11 @@ public abstract class AnalysisExcelByPOI extends AbstractAnalysisExcel{
                             break;
                         case BOOLEAN:
                             break;
-                        case FORMULA:
-                            table.get(j).add(cell.getCellFormula());
-                            System.out.println(1);
+                        case FORMULA: // 公式类型
+                            //table.get(j).add(cell.getCellFormula());
+                            //System.out.println(1);
                             break;
-                        case BLANK:
+                        case BLANK: // 空值
                             break;
                         case ERROR:
                             break;

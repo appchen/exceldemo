@@ -5,6 +5,7 @@
     <title>上传Excel</title>
     <link rel="stylesheet" href="/static/layui/css/layui.css">
     <script src="/static/layui/layui.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -17,6 +18,26 @@
             <button type="button" class="layui-btn" id="test1">
                 <i class="layui-icon">&#xe67c;</i>上传Excel 支持xls、xlsx、cvs等格式
             </button>
+        </div>
+        <div id="resultList" class="layui-row" style="display:none;">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="150">
+                    <col width="200">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>系列</th>
+                    <th>课程</th>
+                    <th>资料</th>
+                    <th>说明</th>
+                </tr>
+                </thead>
+                <tbody id="table_body">
+
+                </tbody>
+            </table>
         </div>
     </div>
     <script>
@@ -36,12 +57,19 @@
             ,size: 5120
             ,field: 'file'
             ,done: function(res){
-                if (res == 1){
+                if (res.state == 1){
                     layer.msg("上传成功");
+                    console.log(res);
+                    // 画出表格
+                    for (let i=0; i<res.courses.length; i++){
+                        $("#table_body").append("<tr><td>" +res.courses[i].series+"</td><td>"
+                            +res.courses[i].cname+"</td><td>"+res.courses[i].resource+"</td><td>"+res.courses[i].resource+"</td></tr>");
+                    }
+                    $("#resultList").css("display", "inline")
                 }
             }
             ,error: function(res){
-                if (res != 1){
+                if (res.state != 1){
                     layer.msg("上传失败")
                 }
             }
